@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Tax Calculator - Old vs New Regime Comparison</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-calculator"></i> India Tax Calculator</h1>
+                <p>Compare Old vs New Tax Regime for Salaried Employees (FY 2025-26) - Updated with Budget 2025</p>
+                <div class="budget-notice">
+                    <i class="fas fa-bell"></i>
+                    <strong>Budget 2025 Update:</strong> New regime now offers marginal relief for income ₹12-12.75 lakh. 
+                    Effectively no tax for salaried employees up to ₹12.75 lakh!
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="calculator-section">
+                <div class="input-section">
+                    <h2><i class="fas fa-edit"></i> Enter Your Details</h2>
+                    
+                    <div class="form-group">
+                        <label for="annualSalary">Annual Salary (₹)</label>
+                        <input type="number" id="annualSalary" placeholder="e.g., 1200000" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hra">HRA Received (₹)</label>
+                        <input type="number" id="hra" placeholder="e.g., 240000" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rentPaid">Rent Paid (₹)</label>
+                        <input type="number" id="rentPaid" placeholder="e.g., 180000" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="providentFund">Provident Fund (₹)</label>
+                        <input type="number" id="providentFund" placeholder="e.g., 60000" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lifeInsurance">Life Insurance Premium (₹)</label>
+                        <input type="number" id="lifeInsurance" placeholder="e.g., 25000" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="elss">ELSS Investment (₹)</label>
+                        <input type="number" id="elss" placeholder="e.g., 50000" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="homeLoanInterest">Home Loan Interest (₹)</label>
+                        <input type="number" id="homeLoanInterest" placeholder="e.g., 200000" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="medicalInsurance">Medical Insurance Premium (₹)</label>
+                        <input type="number" id="medicalInsurance" placeholder="e.g., 25000" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="educationLoan">Education Loan Interest (₹)</label>
+                        <input type="number" id="educationLoan" placeholder="e.g., 40000" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nps">NPS Contribution (₹)</label>
+                        <input type="number" id="nps" placeholder="e.g., 50000" min="0">
+                    </div>
+
+                    <button class="calculate-btn" onclick="calculateTax()">
+                        <i class="fas fa-calculator"></i> Calculate Tax
+                    </button>
+                </div>
+
+                <div class="results-section">
+                    <h2><i class="fas fa-chart-bar"></i> Tax Comparison Results</h2>
+                    
+                    <div class="results-grid">
+                        <div class="regime-card old-regime">
+                            <h3><i class="fas fa-history"></i> Old Tax Regime</h3>
+                            <div class="tax-details">
+                                <div class="detail-row">
+                                    <span>Gross Income:</span>
+                                    <span id="oldGrossIncome">₹0</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Total Deductions:</span>
+                                    <span id="oldDeductions">₹0</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Taxable Income:</span>
+                                    <span id="oldTaxableIncome">₹0</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Income Tax:</span>
+                                    <span id="oldIncomeTax">₹0</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Cess (4%):</span>
+                                    <span id="oldCess">₹0</span>
+                                </div>
+                                <div class="detail-row total">
+                                    <span>Total Tax:</span>
+                                    <span id="oldTotalTax">₹0</span>
+                                </div>
+                                <div class="detail-row net">
+                                    <span>Net Income:</span>
+                                    <span id="oldNetIncome">₹0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="regime-card new-regime">
+                            <h3><i class="fas fa-star"></i> New Tax Regime</h3>
+                            <div class="tax-details">
+                                <div class="detail-row">
+                                    <span>Gross Income:</span>
+                                    <span id="newGrossIncome">₹0</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Total Deductions:</span>
+                                    <span id="newDeductions">₹75,000</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Taxable Income:</span>
+                                    <span id="newTaxableIncome">₹0</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Income Tax:</span>
+                                    <span id="newIncomeTax">₹0</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Cess (4%):</span>
+                                    <span id="newCess">₹0</span>
+                                </div>
+                                <div class="detail-row total">
+                                    <span>Total Tax:</span>
+                                    <span id="newTotalTax">₹0</span>
+                                </div>
+                                <div class="detail-row net">
+                                    <span>Net Income:</span>
+                                    <span id="newNetIncome">₹0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comparison-summary">
+                        <h3><i class="fas fa-balance-scale"></i> Comparison Summary</h3>
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="label">Tax Difference:</span>
+                                <span id="taxDifference" class="value">₹0</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="label">Recommended Regime:</span>
+                                <span id="recommendedRegime" class="value">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="label">Annual Savings:</span>
+                                <span id="annualSavings" class="value">₹0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-cards">
+                    <div class="info-card">
+                        <h3><i class="fas fa-info-circle"></i> Old Tax Regime</h3>
+                        <ul>
+                            <li>Standard deduction: ₹50,000</li>
+                            <li>HRA exemption available</li>
+                            <li>80C deduction up to ₹1.5 lakh</li>
+                            <li>Home loan interest deduction</li>
+                            <li>Medical insurance deduction</li>
+                            <li>Education loan interest deduction</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3><i class="fas fa-star"></i> New Tax Regime (Budget 2025)</h3>
+                        <ul>
+                            <li>Standard deduction: ₹75,000</li>
+                            <li>No tax up to ₹3 lakh income</li>
+                            <li>Marginal relief for ₹12-12.75 lakh income</li>
+                            <li>Effectively no tax up to ₹12.75 lakh for salaried</li>
+                            <li>Revised tax slabs with lower rates</li>
+                            <li>Simplified structure with minimal deductions</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="future-improvements">
+                    <h3><i class="fas fa-lightbulb"></i> Future Improvements</h3>
+                    <div class="improvements-grid">
+                        <div class="improvement-item">
+                            <i class="fas fa-file-pdf"></i>
+                            <h4>PDF Tax Document Analysis</h4>
+                            <p>Upload your Form 16 or salary slips for automatic data extraction using AI</p>
+                        </div>
+                        <div class="improvement-item">
+                            <i class="fas fa-robot"></i>
+                            <h4>AI Tax Advisor</h4>
+                            <p>Get personalized tax planning suggestions based on your financial profile</p>
+                        </div>
+                        <div class="improvement-item">
+                            <i class="fas fa-chart-line"></i>
+                            <h4>Investment Recommendations</h4>
+                            <p>Smart investment suggestions to optimize your tax savings</p>
+                        </div>
+                        <div class="improvement-item">
+                            <i class="fas fa-calendar"></i>
+                            <h4>Multi-Year Planning</h4>
+                            <p>Plan your taxes for multiple financial years with projections</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 India Tax Calculator. For educational purposes only. Please consult a tax professional for official advice.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

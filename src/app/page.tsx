@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'TaxGenius.in - Advanced India Tax Calculator AY 2025-26',
     description: 'Comprehensive tax calculator with Budget 2025 updates. Compare regimes, calculate HRA, deductions & get precise tax liability.',
-    url: 'https://taxgenius.in',
+    url: 'https://dsachaniya.github.io/indian-tax-calculator',
     siteName: 'TaxGenius.in',
   },
   twitter: {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: 'https://taxgenius.in'
+    canonical: 'https://dsachaniya.github.io/indian-tax-calculator'
   }
 }
 
@@ -43,7 +43,7 @@ const structuredData = {
   "@type": "WebApplication",
   "name": "TaxGenius.in Tax Calculator",
   "description": "Advanced India tax calculator for AY 2025-26 with old vs new regime comparison",
-  "url": "https://taxgenius.in",
+  "url": "https://dsachaniya.github.io/indian-tax-calculator",
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "Any",
   "offers": {

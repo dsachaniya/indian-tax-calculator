@@ -93,15 +93,23 @@ const TAX_CONFIG = {
 };
 
 // Modern Tax Slab Processing with Functional Programming
-const processOldRegimeSlabs = () => TAX_CONFIG.slabs.oldRegime.map(slab => ({
-  min: (slab as any).from || 0,
-  max: (slab as any).to || ((slab as any).above ? Infinity : (slab as any).upto),
+interface TaxSlab {
+  upto?: number;
+  from?: number;
+  to?: number;
+  above?: number;
+  rate: number;
+}
+
+const processOldRegimeSlabs = () => TAX_CONFIG.slabs.oldRegime.map((slab: TaxSlab) => ({
+  min: slab.from || 0,
+  max: slab.to || (slab.above ? Infinity : slab.upto || 0),
   rate: slab.rate / 100
 }));
 
-const processNewRegimeSlabs = () => TAX_CONFIG.slabs.newRegime.map(slab => ({
-  min: (slab as any).from || 0,
-  max: (slab as any).to || ((slab as any).above ? Infinity : (slab as any).upto),
+const processNewRegimeSlabs = () => TAX_CONFIG.slabs.newRegime.map((slab: TaxSlab) => ({
+  min: slab.from || 0,
+  max: slab.to || (slab.above ? Infinity : slab.upto || 0),
   rate: slab.rate / 100
 }));
 
@@ -128,12 +136,20 @@ function calculateIncomeTaxFromSlabs(taxableIncome: number, taxSlabs: Array<{min
 }
 
 function calculateSurchargeAmount(incomeTax: number, taxableIncome: number): number {
-  const surchargeConfig = TAX_CONFIG.surcharge.find(s => {
-    if ((s as any).to) {
-      return taxableIncome >= (s as any).from && taxableIncome <= (s as any).to;
-    } else {
-      return taxableIncome >= (s as any).above;
+  interface SurchargeConfig {
+    from?: number;
+    to?: number;
+    above?: number;
+    rate: number;
+  }
+  
+  const surchargeConfig = TAX_CONFIG.surcharge.find((s: SurchargeConfig) => {
+    if (s.to) {
+      return taxableIncome >= (s.from || 0) && taxableIncome <= s.to;
+    } else if (s.above) {
+      return taxableIncome >= s.above;
     }
+    return false;
   });
   return surchargeConfig ? incomeTax * (surchargeConfig.rate / 100) : 0;
 }

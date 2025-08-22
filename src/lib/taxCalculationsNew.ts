@@ -89,6 +89,20 @@ const TAX_CONFIG = {
       allowedDeductions: ["80CCD(2)", "80CCH(2)"],
       disallowed: "All other Chapter VIA deductions"
     }
+  },
+  exemptions: {
+    oldRegime: {
+      HRA: { rule: "10(13A) + Rule 2A", calculation: "least of actual HRA, rent minus 10% salary, 40/50% of salary" },
+      LTA: { rule: "10(5) + Rule 2B", limit: "2 journeys in 4-year block" },
+      gratuity: { limit: 2000000 },
+      leaveEncashment: { limit: 2500000 } // ₹25 lakhs for non-govt employees
+    },
+    newRegime: {
+      HRA: { allowed: false },
+      LTA: { allowed: false },
+      gratuity: { allowed: true, limit: 2000000 },
+      leaveEncashment: { allowed: true, limit: 2500000 } // ₹25 lakhs for non-govt employees
+    }
   }
 };
 

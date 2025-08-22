@@ -5,9 +5,7 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true
-  },
-  basePath: process.env.NODE_ENV === 'production' ? '/indian-tax-calculator' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/indian-tax-calculator/' : '',
+  }
 };
 
 export default nextConfig;

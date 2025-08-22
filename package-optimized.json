@@ -1,0 +1,67 @@
+{
+  "name": "nextjs-tax-calculator",
+  "version": "2.0.0",
+  "description": "Modern, fast, and SEO-friendly Indian Tax Calculator built with Next.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "analyze": "ANALYZE=true npm run build"
+  },
+  "keywords": [
+    "tax calculator",
+    "india",
+    "income tax",
+    "AY 2025-26",
+    "next.js",
+    "typescript",
+    "tailwindcss",
+    "tax planning"
+  ],
+  "author": "TaxGenius.in",
+  "license": "MIT",
+  "dependencies": {
+    "@radix-ui/react-checkbox": "^1.1.3",
+    "@radix-ui/react-label": "^2.1.1",
+    "@radix-ui/react-separator": "^1.1.1",
+    "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-tooltip": "^1.1.5",
+    "class-variance-authority": "^0.7.2",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.0.2",
+    "lucide-react": "^0.469.0",
+    "next": "15.5.0",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.0",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  },
+  "browserslist": {
+    "production": [
+      ">0.3%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "engines": {
+    "node": ">=18.17.0",
+    "npm": ">=8.0.0"
+  }
+}

@@ -51,7 +51,7 @@
     },
     "new_regime": {
       "section_16": {
-        "standard_deduction": 50000
+        "standard_deduction": 75000
       },
       "allowed_deductions": [
         "80CCD(2) – Employer NPS contribution (up to 10% of salary; 14% for govt employees)",

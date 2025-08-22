@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://taxgenius.in/sitemap.xml
+
+# Block common crawlers from unnecessary files
+User-agent: *
+Disallow: /_next/static/
+Disallow: /api/
+Disallow: /*.json$
+
+# Allow search engines to crawl important pages
+Allow: /
+Allow: /sitemap.xml
+Allow: /robots.txt
+Allow: /manifest.json
+
+# Crawl delay
+Crawl-delay: 1

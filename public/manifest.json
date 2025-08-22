@@ -1,0 +1,35 @@
+{
+  "name": "TaxGenius.in - Advanced India Tax Calculator",
+  "short_name": "TaxGenius",
+  "description": "Comprehensive India tax calculator for AY 2025-26 with old vs new regime comparison",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#3b82f6",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "categories": ["finance", "business", "productivity"],
+  "lang": "en-IN",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Quick Tax Calculation",
+      "short_name": "Calculate",
+      "description": "Quick tax calculation",
+      "url": "/?shortcut=calculate",
+      "icons": [{ "src": "/icon-192x192.png", "sizes": "192x192" }]
+    }
+  ]
+}

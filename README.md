@@ -1,6 +1,12 @@
-# India Tax Calculator - Old vs New Regime Comparison
+# 🧮 TaxGenius.in - Advanced India Tax Calculator
 
-A comprehensive web application to help Indian salaried employees compare tax calculations between the Old Tax Regime and New Tax Regime for Financial Year 2024-25.
+[![Live Website](https://img.shields.io/badge/Live-taxgenius.in-blue?style=for-the-badge&logo=web)](https://taxgenius.in)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+[![Tech Stack](https://img.shields.io/badge/Tech-Modern%20Web-orange?style=for-the-badge)](#tech-stack)
+
+## 🚀 Advanced Tax Calculation Engine for AY 2025-26
+
+TaxGenius.in is a comprehensive, modern web application that provides accurate India income tax calculations with complete old vs new regime comparison. Built with cutting-edge web technologies and designed for the future of tax planning.
 
 ## Features
 

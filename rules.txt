@@ -1,0 +1,91 @@
+{
+  "tax_year": "AY2025-26",
+  "slabs": {
+    "old_regime": [
+      { "upto": 250000, "rate": 0 },
+      { "from": 250001, "to": 500000, "rate": 5 },
+      { "from": 500001, "to": 1000000, "rate": 20 },
+      { "above": 1000000, "rate": 30 }
+    ],
+    "new_regime": [
+      { "upto": 300000, "rate": 0 },
+      { "from": 300001, "to": 600000, "rate": 5 },
+      { "from": 600001, "to": 900000, "rate": 10 },
+      { "from": 900001, "to": 1200000, "rate": 15 },
+      { "from": 1200001, "to": 1500000, "rate": 20 },
+      { "above": 1500000, "rate": 30 }
+    ]
+  },
+  "rebate_87A": {
+    "old_regime": {
+      "limit": 500000,
+      "rebate": 12500
+    },
+    "new_regime": {
+      "limit": 1200000,
+      "rebate": "Tax payable up to 1200000 fully rebated; marginal relief applies above 12L"
+    }
+  },
+  "cess": { "rate": 4, "type": "Health and Education Cess" },
+  "surcharge": [
+    { "from": 5000000, "to": 10000000, "rate": 10 },
+    { "from": 10000001, "to": 20000000, "rate": 15 },
+    { "from": 20000001, "to": 50000000, "rate": 25 },
+    { "above": 50000000, "rate": 37 }
+  ],
+  "deductions": {
+    "old_regime": {
+      "section_16": {
+        "standard_deduction": 50000,
+        "entertainment_allowance": "Govt employees only",
+        "professional_tax": "As per State laws, max Rs 2500"
+      },
+      "chapter_VIA": [
+        "80C (PF, PPF, LIC, ELSS, etc. up to Rs 1.5L)",
+        "80D (Health insurance)",
+        "80E (Education loan)",
+        "80G (Donations)",
+        "80CCD(1B) (NPS extra 50k)",
+        "others as per Act"
+      ]
+    },
+    "new_regime": {
+      "section_16": {
+        "standard_deduction": 50000
+      },
+      "allowed_deductions": [
+        "80CCD(2) – Employer NPS contribution (up to 10% of salary; 14% for govt employees)",
+        "80CCH(2) – Agniveer Corpus Fund contribution"
+      ],
+      "disallowed": "All other Chapter VIA deductions not listed above"
+    }
+  },
+  "exemptions": {
+    "old_regime": {
+      "HRA": "Section 10(13A) + Rule 2A (least of actual HRA, rent minus 10% salary, 40/50% of salary)",
+      "LTA": "Section 10(5) + Rule 2B (2 journeys in 4-year block, family definition, economy fare cap)",
+      "Gratuity": "Section 10(10) – up to Rs 20L (non-govt)",
+      "Leave_Encashment": "Section 10(10AA) – Rs 3L limit (non-govt)",
+      "Other_Allowances": "Section 10(14) + Rule 2BB (education, hostel, conveyance, special areas)"
+    },
+    "new_regime": {
+      "HRA": "Not allowed",
+      "LTA": "Not allowed",
+      "Gratuity": "Still exempt (retirement benefits allowed)",
+      "Leave_Encashment": "Still exempt",
+      "Other_Allowances": "Mostly disallowed, except few reimbursements (travel, conveyance, etc. if not part of s.10(14))"
+    }
+  },
+  "perquisites": {
+    "valuation": "Rule 3 applies – car, accommodation, ESOPs, concessional loans, etc.",
+    "tax_free_limits": {
+      "specified_employee_perquisite": "Raised from Rs 50,000 to Rs 4,00,000 (FA 2025)",
+      "overseas_medical_treatment": "Exempt up to Rs 8,00,000"
+    }
+  },
+  "option_switching": {
+    "default": "New regime (115BAC(1A))",
+    "salaried": "Can choose regime each year while filing return (via ITR)",
+    "business_profession": "One-time switch back to old regime allowed, then locked"
+  }
+}

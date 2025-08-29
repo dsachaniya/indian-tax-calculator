@@ -6,12 +6,14 @@ import AdSense from './AdSense'
 export function HeaderBannerAd() {
   return (
     <div className="w-full flex justify-center py-4 bg-gray-50 border-b">
-      <AdSense
-        adSlot="8204149767" // Replace with your actual ad slot
-        adFormat="auto"
-        className="max-w-4xl"
-        style={{ display: 'block', textAlign: 'center' }}
-      />
+      <div className="max-w-4xl w-full px-4">
+        <AdSense
+          adSlot="placeholder-header" // Replace with your actual ad slot
+          adFormat="auto"
+          className="w-full"
+          style={{ display: 'block', textAlign: 'center', minHeight: '90px' }}
+        />
+      </div>
     </div>
   )
 }
@@ -23,9 +25,10 @@ export function SidebarAd() {
       <div className="bg-gray-50 p-4 rounded-lg border">
         <p className="text-xs text-gray-500 mb-2 text-center">Advertisement</p>
         <AdSense
-          adSlot="8367515880" // Replace with your actual ad slot
+          adSlot="placeholder-sidebar" // Replace with your actual ad slot
           adFormat="rectangle"
-          style={{ display: 'block', width: '300px', height: '250px' }}
+          className="w-full"
+          style={{ display: 'block', width: '300px', height: '250px', margin: '0 auto' }}
         />
       </div>
     </div>
@@ -39,9 +42,10 @@ export function ContentAd() {
       <p className="text-xs text-gray-500 mb-4 text-center">Advertisement</p>
       <div className="max-w-4xl mx-auto px-4">
         <AdSense
-          adSlot="5741352547" // Replace with your actual ad slot
+          adSlot="placeholder-content" // Replace with your actual ad slot
           adFormat="auto"
-          style={{ display: 'block' }}
+          className="w-full"
+          style={{ display: 'block', minHeight: '250px' }}
         />
       </div>
     </div>
@@ -52,12 +56,13 @@ export function ContentAd() {
 export function FooterAd() {
   return (
     <div className="w-full flex justify-center py-4 bg-gray-100 border-t mt-8">
-      <div className="max-w-4xl w-full text-center">
+      <div className="max-w-4xl w-full text-center px-4">
         <p className="text-xs text-gray-500 mb-2">Advertisement</p>
         <AdSense
-          adSlot="8814523859" // Replace with your actual ad slot
-          adFormat="horizontal"
-          style={{ display: 'block' }}
+          adSlot="placeholder-footer" // Replace with your actual ad slot
+          adFormat="auto"
+          className="w-full"
+          style={{ display: 'block', minHeight: '90px' }}
         />
       </div>
     </div>
@@ -68,11 +73,14 @@ export function FooterAd() {
 export function MobileBannerAd() {
   return (
     <div className="md:hidden w-full flex justify-center py-2 bg-blue-50 border">
-      <AdSense
-        adSlot="ca-pub-5445129635656696" // Replace with your actual ad slot
-        adFormat="auto"
-        style={{ display: 'block', width: '320px', height: '50px' }}
-      />
+      <div className="w-full max-w-sm px-4">
+        <AdSense
+          adSlot="placeholder-mobile" // Replace with your actual ad slot
+          adFormat="auto"
+          className="w-full"
+          style={{ display: 'block', minHeight: '50px' }}
+        />
+      </div>
     </div>
   )
 }

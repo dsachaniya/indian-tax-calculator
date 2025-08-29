@@ -56,6 +56,11 @@ const structuredData = {
 export default function Home() {
   return (
     <>
+      {/* Google AdSense Script */}
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5445129635656696"
+     crossOrigin="anonymous"></script>
+
+      {/* Structured Data for SEO */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

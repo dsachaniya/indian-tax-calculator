@@ -11,6 +11,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Separator } from '@/components/ui/separator'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { TaxInputs, calculateOldRegimeTax, calculateNewRegimeTax, formatCurrency } from '@/lib/taxCalculationsNew'
+import { HeaderBannerAd, ContentAd, FooterAd, MobileBannerAd } from './AdComponents'
 
 export default function TaxCalculator() {
   const [inputs, setInputs] = useState<TaxInputs>({
@@ -71,6 +72,12 @@ export default function TaxCalculator() {
             </div>
           </div>
         </motion.header>
+
+        {/* Header Banner Ad */}
+        <HeaderBannerAd />
+        
+        {/* Mobile Banner Ad */}
+        <MobileBannerAd />
 
         {/* Main Calculator Section */}
         <div className="container mx-auto px-4 py-6">
@@ -434,6 +441,9 @@ export default function TaxCalculator() {
           </div>
         </div>
 
+        {/* Content Ad */}
+        <ContentAd />
+
         {/* Information Cards */}
         <div className="container mx-auto px-4 pb-8">
           <motion.div
@@ -481,6 +491,9 @@ export default function TaxCalculator() {
             </Card>
           </motion.div>
         </div>
+        
+        {/* Footer Ad */}
+        <FooterAd />
       </div>
     </TooltipProvider>
   )

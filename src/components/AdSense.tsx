@@ -28,12 +28,16 @@ export default function AdSense({
 
   // Don't load ads in development mode or if using placeholder slots
   const isDevelopment = process.env.NODE_ENV === 'development'
-  const isPlaceholderSlot = adSlot.length < 8 || adSlot.includes('placeholder')
+  const isPlaceholderSlot = adSlot.includes('placeholder')
 
   useEffect(() => {
     // Skip ad loading in development or with placeholder slots
     if (isDevelopment || isPlaceholderSlot) {
-      setAdError('Development mode - ads disabled')
+      if (isDevelopment) {
+        setAdError('Development mode - ads disabled')
+      } else {
+        setAdError('Placeholder ad slot - replace with real AdSense ID')
+      }
       return
     }
 
@@ -61,15 +65,35 @@ export default function AdSense({
     return () => clearTimeout(timer)
   }, [isDevelopment, isPlaceholderSlot])
 
-  // Show placeholder in development or error state
-  if (isDevelopment || isPlaceholderSlot || adError) {
+  // Show placeholder only in development, hide completely in production with placeholder slots
+  if (isDevelopment || (isPlaceholderSlot && isDevelopment)) {
     return (
       <div className={`adsense-placeholder bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center min-h-[120px] ${className}`}>
         <div className="text-center p-4">
           <div className="text-sm text-gray-500 mb-2">📢 Advertisement Space</div>
-          {isDevelopment && <div className="text-xs text-gray-400">Development Mode</div>}
-          {isPlaceholderSlot && <div className="text-xs text-gray-400">Placeholder Ad Slot</div>}
-          {adError && <div className="text-xs text-red-400">{adError}</div>}
+          <div className="text-xs text-gray-400">Development Mode</div>
+          {isPlaceholderSlot && (
+            <div className="text-xs text-blue-500 font-medium mt-1">
+              Replace with real AdSense ID for production
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  // Hide ads completely in production if using placeholder slots
+  if (isPlaceholderSlot && !isDevelopment) {
+    return null
+  }
+
+  // Show error state only for real ads that failed to load
+  if (adError && !isPlaceholderSlot) {
+    return (
+      <div className={`adsense-error bg-red-50 border border-red-200 rounded-lg flex items-center justify-center min-h-[120px] ${className}`}>
+        <div className="text-center p-4">
+          <div className="text-sm text-red-600 mb-2">Ad Loading Error</div>
+          <div className="text-xs text-red-400">{adError}</div>
         </div>
       </div>
     )

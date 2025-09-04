@@ -89,41 +89,19 @@ const TAX_CONFIG = {
       allowedDeductions: ["80CCD(2)", "80CCH(2)"],
       disallowed: "All other Chapter VIA deductions"
     }
-  },
-  exemptions: {
-    oldRegime: {
-      HRA: { rule: "10(13A) + Rule 2A", calculation: "least of actual HRA, rent minus 10% salary, 40/50% of salary" },
-      LTA: { rule: "10(5) + Rule 2B", limit: "2 journeys in 4-year block" },
-      gratuity: { limit: 2000000 },
-      leaveEncashment: { limit: 2500000 } // ₹25 lakhs for non-govt employees
-    },
-    newRegime: {
-      HRA: { allowed: false },
-      LTA: { allowed: false },
-      gratuity: { allowed: true, limit: 2000000 },
-      leaveEncashment: { allowed: true, limit: 2500000 } // ₹25 lakhs for non-govt employees
-    }
   }
 };
 
 // Modern Tax Slab Processing with Functional Programming
-interface TaxSlab {
-  upto?: number;
-  from?: number;
-  to?: number;
-  above?: number;
-  rate: number;
-}
-
-const processOldRegimeSlabs = () => TAX_CONFIG.slabs.oldRegime.map((slab: TaxSlab) => ({
-  min: slab.from || 0,
-  max: slab.to || (slab.above ? Infinity : slab.upto || 0),
+const processOldRegimeSlabs = () => TAX_CONFIG.slabs.oldRegime.map(slab => ({
+  min: (slab as any).from || 0,
+  max: (slab as any).to || ((slab as any).above ? Infinity : (slab as any).upto),
   rate: slab.rate / 100
 }));
 
-const processNewRegimeSlabs = () => TAX_CONFIG.slabs.newRegime.map((slab: TaxSlab) => ({
-  min: slab.from || 0,
-  max: slab.to || (slab.above ? Infinity : slab.upto || 0),
+const processNewRegimeSlabs = () => TAX_CONFIG.slabs.newRegime.map(slab => ({
+  min: (slab as any).from || 0,
+  max: (slab as any).to || ((slab as any).above ? Infinity : (slab as any).upto),
   rate: slab.rate / 100
 }));
 
@@ -150,20 +128,12 @@ function calculateIncomeTaxFromSlabs(taxableIncome: number, taxSlabs: Array<{min
 }
 
 function calculateSurchargeAmount(incomeTax: number, taxableIncome: number): number {
-  interface SurchargeConfig {
-    from?: number;
-    to?: number;
-    above?: number;
-    rate: number;
-  }
-  
-  const surchargeConfig = TAX_CONFIG.surcharge.find((s: SurchargeConfig) => {
-    if (s.to) {
-      return taxableIncome >= (s.from || 0) && taxableIncome <= s.to;
-    } else if (s.above) {
-      return taxableIncome >= s.above;
+  const surchargeConfig = TAX_CONFIG.surcharge.find(s => {
+    if ((s as any).to) {
+      return taxableIncome >= (s as any).from && taxableIncome <= (s as any).to;
+    } else {
+      return taxableIncome >= (s as any).above;
     }
-    return false;
   });
   return surchargeConfig ? incomeTax * (surchargeConfig.rate / 100) : 0;
 }

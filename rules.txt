@@ -51,7 +51,7 @@
     },
     "new_regime": {
       "section_16": {
-        "standard_deduction": 75000
+        "standard_deduction": 50000
       },
       "allowed_deductions": [
         "80CCD(2) – Employer NPS contribution (up to 10% of salary; 14% for govt employees)",
@@ -65,7 +65,7 @@
       "HRA": "Section 10(13A) + Rule 2A (least of actual HRA, rent minus 10% salary, 40/50% of salary)",
       "LTA": "Section 10(5) + Rule 2B (2 journeys in 4-year block, family definition, economy fare cap)",
       "Gratuity": "Section 10(10) – up to Rs 20L (non-govt)",
-      "Leave_Encashment": "Section 10(10AA) – Rs 25L limit (non-govt)",
+      "Leave_Encashment": "Section 10(10AA) – Rs 3L limit (non-govt)",
       "Other_Allowances": "Section 10(14) + Rule 2BB (education, hostel, conveyance, special areas)"
     },
     "new_regime": {

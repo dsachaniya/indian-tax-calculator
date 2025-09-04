@@ -4,6 +4,7 @@ import { useState, useCallback, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Calculator, TrendingUp, DollarSign, FileText, Sparkles, Code, Smartphone, Rocket, Shield } from 'lucide-react'
 
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -18,7 +19,7 @@ import {
   calculateNewRegimeTax, 
   formatCurrency,
   TaxResults
-} from '@/lib/taxCalculationsNew'
+} from '@/lib/taxCalculations'
 
 const TaxCalculator = () => {
   const [inputs, setInputs] = useState<TaxInputs>({

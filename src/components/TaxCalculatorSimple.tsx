@@ -70,7 +70,7 @@ export default function TaxCalculatorSimple() {
                 Income Tax Calculator
               </Button>
               
-              <Link href="/gst-section-14-time-of-supply">
+              <Link href="/gst-section-14-time-of-supply/">
                 <Button 
                   variant="outline" 
                   className="gap-2 border-green-600 text-green-600 hover:bg-green-50"

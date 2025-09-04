@@ -27,7 +27,7 @@ export default function Footer() {
                 <Calculator className="w-4 h-4" />
                 Income Tax Calculator
               </Link>
-              <Link href="/gst-section-14-time-of-supply" className="flex items-center gap-2 text-sm hover:text-green-400 transition-colors">
+              <Link href="/gst-section-14-time-of-supply/" className="flex items-center gap-2 text-sm hover:text-green-400 transition-colors">
                 <Receipt className="w-4 h-4" />
                 GST Section 14 Calculator
               </Link>

@@ -73,6 +73,10 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Add .nojekyll file
         run: touch ./out/.nojekyll
+      - name: Add cache busting
+        run: |
+          echo "<!-- Build: $(date) -->" >> ./out/index.html
+          echo "Deployment completed at: $(date)"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

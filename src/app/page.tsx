@@ -1,4 +1,5 @@
 import TaxCalculatorSimple from '@/components/TaxCalculatorSimple'
+import DebugInfo from '@/components/DebugInfo'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -67,6 +68,7 @@ export default function Home() {
           __html: JSON.stringify(structuredData),
         }}
       />
+      <DebugInfo />
       <TaxCalculatorSimple />
     </>
   )

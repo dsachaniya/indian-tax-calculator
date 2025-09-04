@@ -1,4 +1,4 @@
-import TaxCalculator from '@/components/TaxCalculatorNew'
+import TaxCalculatorSimple from '@/components/TaxCalculatorSimple'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -67,7 +67,7 @@ export default function Home() {
           __html: JSON.stringify(structuredData),
         }}
       />
-      <TaxCalculator />
+      <TaxCalculatorSimple />
     </>
   )
 }

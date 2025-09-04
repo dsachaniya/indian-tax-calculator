@@ -8,7 +8,7 @@ export function HeaderBannerAd() {
     <div className="w-full flex justify-center py-4 bg-gray-50 border-b">
       <div className="max-w-4xl w-full px-4">
         <AdSense
-          adSlot="placeholder-header" // Replace with your actual ad slot
+          adSlot="9876543210" // Replace with your actual header ad slot from AdSense dashboard
           adFormat="auto"
           className="w-full"
           style={{ display: 'block', textAlign: 'center', minHeight: '90px' }}
@@ -42,7 +42,7 @@ export function ContentAd() {
       <p className="text-xs text-gray-500 mb-4 text-center">Advertisement</p>
       <div className="max-w-4xl mx-auto px-4">
         <AdSense
-          adSlot="placeholder-content" // Replace with your actual ad slot
+          adSlot="1234567890" // Replace with your actual ad slot from AdSense dashboard
           adFormat="auto"
           className="w-full"
           style={{ display: 'block', minHeight: '250px' }}

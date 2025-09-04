@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Separator } from '@/components/ui/separator'
 import { TaxInputs, calculateOldRegimeTax, calculateNewRegimeTax, formatCurrency } from '@/lib/taxCalculationsNew'
+import { ContentAd, HeaderBannerAd } from './AdComponents'
 import Footer from './Footer'
 
 export default function TaxCalculatorSimple() {
@@ -83,6 +84,9 @@ export default function TaxCalculatorSimple() {
           </div>
         </div>
       </header>
+
+      {/* Header Banner Advertisement */}
+      <HeaderBannerAd />
 
       {/* Main Calculator Section */}
       <div className="container mx-auto px-4 py-6">
@@ -246,6 +250,9 @@ export default function TaxCalculatorSimple() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Content Advertisement */}
+            <ContentAd />
 
             {/* Tax Regime Cards */}
             <div className="grid md:grid-cols-2 gap-6">

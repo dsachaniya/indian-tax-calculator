@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/components/ui/separator'
 import { Calculator, Receipt, Calendar, IndianRupee, ArrowLeft, Info } from 'lucide-react'
 import Link from 'next/link'
+import { ContentAd } from './AdComponents'
 import Footer from './Footer'
 
 interface GSTResult {
@@ -235,6 +236,9 @@ export default function GSTCalculator() {
               </CardContent>
             </Card>
           </motion.div>
+
+          {/* Content Advertisement */}
+          <ContentAd />
 
           {/* Results Section */}
           <motion.div

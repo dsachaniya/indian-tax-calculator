@@ -26,11 +26,11 @@ export default function AdSense({
   const adRef = useRef<HTMLDivElement>(null)
   const [adError, setAdError] = useState<string | null>(null)
 
-  // Don't load ads in development mode
+  // Only skip ads in development mode
   const isDevelopment = process.env.NODE_ENV === 'development'
 
   useEffect(() => {
-    // Skip ad loading only in development 
+    // Skip ad loading only in development
     if (isDevelopment) {
       setAdError('Development mode - ads disabled')
       return
@@ -60,7 +60,7 @@ export default function AdSense({
     return () => clearTimeout(timer)
   }, [isDevelopment])
 
-  // Show placeholder in development mode
+  // Show placeholder only in development mode
   if (isDevelopment) {
     return (
       <div className={`adsense-placeholder bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center min-h-[120px] ${className}`}>

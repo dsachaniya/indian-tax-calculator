@@ -8,7 +8,7 @@ export function HeaderBannerAd() {
     <div className="w-full flex justify-center py-4 bg-gray-50 border-b">
       <div className="max-w-4xl w-full px-4">
         <AdSense
-          adSlot="9876543210" // Replace with your actual header ad slot from AdSense dashboard
+          adSlot="8204149767" // Header Banner ad slot
           adFormat="auto"
           className="w-full"
           style={{ display: 'block', textAlign: 'center', minHeight: '90px' }}
@@ -25,7 +25,7 @@ export function SidebarAd() {
       <div className="bg-gray-50 p-4 rounded-lg border">
         <p className="text-xs text-gray-500 mb-2 text-center">Advertisement</p>
         <AdSense
-          adSlot="placeholder-sidebar" // Replace with your actual ad slot
+          adSlot="8367515880" // SidebarAd ad slot
           adFormat="rectangle"
           className="w-full"
           style={{ display: 'block', width: '300px', height: '250px', margin: '0 auto' }}
@@ -42,7 +42,7 @@ export function ContentAd() {
       <p className="text-xs text-gray-500 mb-4 text-center">Advertisement</p>
       <div className="max-w-4xl mx-auto px-4">
         <AdSense
-          adSlot="1234567890" // Replace with your actual ad slot from AdSense dashboard
+          adSlot="5741352547" // ContentAd ad slot
           adFormat="auto"
           className="w-full"
           style={{ display: 'block', minHeight: '250px' }}
@@ -59,7 +59,7 @@ export function FooterAd() {
       <div className="max-w-4xl w-full text-center px-4">
         <p className="text-xs text-gray-500 mb-2">Advertisement</p>
         <AdSense
-          adSlot="placeholder-footer" // Replace with your actual ad slot
+          adSlot="8814523859" // FooterAd ad slot
           adFormat="auto"
           className="w-full"
           style={{ display: 'block', minHeight: '90px' }}
@@ -75,7 +75,7 @@ export function MobileBannerAd() {
     <div className="md:hidden w-full flex justify-center py-2 bg-blue-50 border">
       <div className="w-full max-w-sm px-4">
         <AdSense
-          adSlot="placeholder-mobile" // Replace with your actual ad slot
+          adSlot="4428270870" // MobileBannerAd ad slot
           adFormat="auto"
           className="w-full"
           style={{ display: 'block', minHeight: '50px' }}

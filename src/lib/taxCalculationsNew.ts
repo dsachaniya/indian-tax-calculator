@@ -3,6 +3,7 @@
 
 export interface TaxInputs {
   annualSalary: number
+  basicPlusDA: number // Added to match ADSENSE_SETUP.md structure
   hra: number
   rentPaid: number
   providentFund: number
@@ -15,6 +16,10 @@ export interface TaxInputs {
   professionalTax: number
   employerNPS: number
   agniveerCorpus: number
+  // Additional deduction fields from ADSENSE_SETUP.md
+  section80G: number // Donations to approved institutions
+  section80TTA: number // Savings Bank Interest (Max ₹10,000, Non-senior citizens)
+  section80TTB: number // Savings/FD Interest (Max ₹50,000, Senior citizens only)
   isMetro: boolean
 }
 
@@ -26,6 +31,9 @@ export interface TaxResults {
   section80D?: number
   section24?: number
   section80E?: number
+  section80G?: number // Donations to approved institutions
+  section80TTA?: number // Savings Bank Interest
+  section80TTB?: number // Savings/FD Interest (Senior citizens)
   section80CCD1B?: number
   section80CCD2?: number
   section80CCH2?: number
@@ -96,12 +104,14 @@ const TAX_CONFIG = {
   ] as SurchargeConfig[],
   deductions: {
     oldRegime: {
-      section16: { standardDeduction: 50000, professionalTaxMax: 2500 },
+      section16: { standardDeduction: 75000, professionalTaxMax: 2500 }, // Updated to ₹75,000
       chapterVIA: {
-        section80C: { limit: 150000, types: ["PF", "PPF", "LIC", "ELSS"] },
-        section80D: { limit: 25000, senior: 50000 },
-        section80E: { limit: "No limit" },
-        section80G: { limit: "50%-100% of donation" },
+        section80C: { limit: 150000, types: ["PF", "PPF", "LIC", "ELSS", "EPF", "NSC", "Tuition Fees", "Housing Loan Principal"] },
+        section80D: { limit: 25000, senior: 50000, description: "Medical Insurance for self/family/parents" },
+        section80E: { limit: "No limit", description: "Interest on Education Loan (No limit, max 8 years)" },
+        section80G: { limit: "Variable", description: "Donations to approved institutions (50%/100% depending on approval)" },
+        section80TTA: { limit: 10000, description: "Savings Bank Interest (Max ₹10,000, Non-senior citizens)" },
+        section80TTB: { limit: 50000, description: "Savings/FD Interest (Max ₹50,000, Senior citizens only)" },
         section80CCD1B: { limit: 50000 }
       }
     },
@@ -148,45 +158,45 @@ function calculateIncomeTaxFromSlabs(taxableIncome: number, taxSlabs: Array<{min
   }, 0);
 }
 
-function calculateSurchargeAmount(incomeTax: number, taxableIncome: number): number {
-  const surchargeConfig = TAX_CONFIG.surcharge.find((s: SurchargeConfig) => {
-    if (s.to) {
-      return taxableIncome >= (s.from || 0) && taxableIncome <= s.to;
-    } else {
-      return taxableIncome >= (s.above || 0);
-    }
-  });
-  return surchargeConfig ? incomeTax * (surchargeConfig.rate / 100) : 0;
+function calculateSurchargeAmount(incomeTax: number, taxableIncome: number, isNewRegime = false): number {
+  let surchargeRate = 0;
+  
+  if (taxableIncome > 50000000) {
+    surchargeRate = isNewRegime ? 0.25 : 0.37; // New regime capped at 25%
+  } else if (taxableIncome > 20000000) {
+    surchargeRate = 0.25;
+  } else if (taxableIncome > 10000000) {
+    surchargeRate = 0.15;
+  } else if (taxableIncome > 5000000) {
+    surchargeRate = 0.10;
+  }
+  
+  return incomeTax * surchargeRate;
 }
 
-function calculateHRAExemptionAmount(salary: number, hra: number, rentPaid: number, isMetro = false): number {
+function calculateHRAExemptionAmount(basicPlusDA: number, hra: number, rentPaid: number, isMetro = false): number {
   if (!hra || !rentPaid) return 0;
   
-  const basicSalary = salary * 0.5; // Assuming basic is 50% of salary
   const metroRate = isMetro ? 0.5 : 0.4; // 50% for metro, 40% for non-metro
   
-  return Math.max(0, Math.min(
+  return Math.min(
     hra,
-    rentPaid - (basicSalary * 0.1),
-    basicSalary * metroRate
-  ));
+    Math.max(rentPaid - (basicPlusDA * 0.1), 0),
+    basicPlusDA * metroRate
+  );
 }
 
-// Enhanced Marginal Relief with Precise Implementation
+// Enhanced Marginal Relief with Precise Implementation matching ADSENSE_SETUP.md
 function applyMarginalReliefCalculation(taxableIncome: number, calculatedTax: number, isNewRegime = false): number {
   if (isNewRegime) {
-    // New Regime: Complete rebate up to ₹12L, marginal relief from ₹12L-₹12.75L
-    if (taxableIncome <= 1200000) {
-      return 0; // Complete rebate up to ₹12 lakh
-    }
-    if (taxableIncome <= 1275000) {
-      const excessAmount = taxableIncome - 1200000;
-      return Math.min(calculatedTax, excessAmount);
+    // New Regime: Complete rebate up to ₹7L based on ADSENSE_SETUP.md
+    if (taxableIncome <= 700000) {
+      return 0; // Complete rebate up to ₹7 lakh
     }
   } else {
-    // Old Regime: Section 87A rebate
+    // Old Regime: Section 87A rebate - Complete rebate up to ₹5L based on ADSENSE_SETUP.md
     if (taxableIncome <= 500000) {
-      return Math.max(0, calculatedTax - 12500);
+      return 0; // Complete rebate up to ₹5 lakh
     }
   }
   return calculatedTax;
@@ -195,28 +205,34 @@ function applyMarginalReliefCalculation(taxableIncome: number, calculatedTax: nu
 // Comprehensive Old Regime Calculation
 export function calculateOldRegimeTax(inputs: TaxInputs): TaxResults {
   const {
-    annualSalary, hra, rentPaid, providentFund, lifeInsurance, elss,
+    annualSalary, basicPlusDA, hra, rentPaid, providentFund, lifeInsurance, elss,
     homeLoanInterest, medicalInsurance, educationLoan, nps, 
-    professionalTax = 0, isMetro = false, employerNPS = 0
+    professionalTax = 0, isMetro = false, employerNPS = 0,
+    section80G = 0, section80TTA = 0, section80TTB = 0
   } = inputs;
 
   // Section 16 Deductions
   const standardDeduction = TAX_CONFIG.deductions.oldRegime.section16.standardDeduction;
   const professionalTaxDeduction = Math.min(professionalTax, 2500);
 
-  // HRA Exemption (Section 10(13A))
-  const hraExemption = calculateHRAExemptionAmount(annualSalary, hra, rentPaid, isMetro);
+  // HRA Exemption (Section 10(13A)) - Use basicPlusDA if provided, otherwise estimate
+  const salaryForHRA = basicPlusDA || (annualSalary * 0.5); // Use basicPlusDA or estimate as 50% of total
+  const hraExemption = calculateHRAExemptionAmount(salaryForHRA, hra, rentPaid, isMetro);
 
   // Chapter VIA Deductions
   const section80C = Math.min(150000, providentFund + lifeInsurance + elss);
   const section80D = Math.min(25000, medicalInsurance);
   const section24 = Math.min(200000, homeLoanInterest);
   const section80E = educationLoan; // No limit
+  const section80GDeduction = section80G; // Donations (no specific limit applied here, depends on approval type)
+  const section80TTADeduction = Math.min(10000, section80TTA); // Savings Bank Interest (Max ₹10,000)
+  const section80TTBDeduction = Math.min(50000, section80TTB); // Savings/FD Interest (Max ₹50,000, Senior citizens)
   const section80CCD1B = Math.min(50000, nps);
   const section80CCD2 = employerNPS; // Employer NPS contribution (no limit)
 
   const totalDeductions = standardDeduction + professionalTaxDeduction + hraExemption + 
                          section80C + section80D + section24 + section80E + 
+                         section80GDeduction + section80TTADeduction + section80TTBDeduction +
                          section80CCD1B + section80CCD2;
 
   const taxableIncome = Math.max(0, annualSalary - totalDeductions);
@@ -226,7 +242,7 @@ export function calculateOldRegimeTax(inputs: TaxInputs): TaxResults {
   incomeTax = applyMarginalReliefCalculation(taxableIncome, incomeTax, false);
   
   // Calculate surcharge if applicable
-  const surcharge = calculateSurchargeAmount(incomeTax, taxableIncome);
+  const surcharge = calculateSurchargeAmount(incomeTax, taxableIncome, false);
   const taxWithSurcharge = incomeTax + surcharge;
   
   // Health and Education Cess
@@ -241,6 +257,9 @@ export function calculateOldRegimeTax(inputs: TaxInputs): TaxResults {
     section80D,
     section24,
     section80E,
+    section80G: section80GDeduction,
+    section80TTA: section80TTADeduction,
+    section80TTB: section80TTBDeduction,
     section80CCD1B,
     section80CCD2,
     totalDeductions,
@@ -279,7 +298,7 @@ export function calculateNewRegimeTax(inputs: TaxInputs): TaxResults {
   incomeTax = applyMarginalReliefCalculation(taxableIncome, incomeTax, true);
   
   // Calculate surcharge if applicable
-  const surcharge = calculateSurchargeAmount(incomeTax, taxableIncome);
+  const surcharge = calculateSurchargeAmount(incomeTax, taxableIncome, true);
   const taxWithSurcharge = incomeTax + surcharge;
   
   // Health and Education Cess
@@ -299,6 +318,6 @@ export function calculateNewRegimeTax(inputs: TaxInputs): TaxResults {
     totalTax,
     netIncome: annualSalary - totalTax,
     effectiveRate: (totalTax / annualSalary * 100).toFixed(2),
-    rebateApplied: taxableIncome <= 1200000
+    rebateApplied: taxableIncome <= 700000
   };
 }

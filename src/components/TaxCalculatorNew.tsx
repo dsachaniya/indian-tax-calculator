@@ -17,6 +17,7 @@ import Footer from './Footer'
 export default function TaxCalculator() {
   const [inputs, setInputs] = useState<TaxInputs>({
     annualSalary: 0,
+    basicPlusDA: 0, // Added basic + DA field
     hra: 0,
     rentPaid: 0,
     providentFund: 0,
@@ -29,6 +30,9 @@ export default function TaxCalculator() {
     professionalTax: 0,
     employerNPS: 0,
     agniveerCorpus: 0,
+    section80G: 0, // Donations to approved institutions
+    section80TTA: 0, // Savings Bank Interest
+    section80TTB: 0, // Savings/FD Interest (Senior citizens)
     isMetro: false,
   })
 
@@ -127,6 +131,18 @@ export default function TaxCalculator() {
                         placeholder="e.g., 1200000"
                         value={inputs.annualSalary || ''}
                         onChange={(e) => updateInput('annualSalary', Number(e.target.value))}
+                        className="mt-1"
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="basicPlusDA" className="text-sm font-medium">Basic Salary + DA (₹)</Label>
+                      <Input
+                        id="basicPlusDA"
+                        type="number"
+                        placeholder="e.g., 600000"
+                        value={inputs.basicPlusDA || ''}
+                        onChange={(e) => updateInput('basicPlusDA', Number(e.target.value))}
                         className="mt-1"
                       />
                     </div>
@@ -236,6 +252,42 @@ export default function TaxCalculator() {
                         placeholder="e.g., 50000"
                         value={inputs.nps || ''}
                         onChange={(e) => updateInput('nps', Number(e.target.value))}
+                        className="mt-1"
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="section80G" className="text-sm font-medium">80G: Donations (₹)</Label>
+                      <Input
+                        id="section80G"
+                        type="number"
+                        placeholder="Donations to approved institutions"
+                        value={inputs.section80G || ''}
+                        onChange={(e) => updateInput('section80G', Number(e.target.value))}
+                        className="mt-1"
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="section80TTA" className="text-sm font-medium">80TTA: Savings Interest (₹)</Label>
+                      <Input
+                        id="section80TTA"
+                        type="number"
+                        placeholder="Max ₹10,000 (Non-senior citizens)"
+                        value={inputs.section80TTA || ''}
+                        onChange={(e) => updateInput('section80TTA', Number(e.target.value))}
+                        className="mt-1"
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="section80TTB" className="text-sm font-medium">80TTB: Savings/FD Interest (₹)</Label>
+                      <Input
+                        id="section80TTB"
+                        type="number"
+                        placeholder="Max ₹50,000 (Senior citizens)"
+                        value={inputs.section80TTB || ''}
+                        onChange={(e) => updateInput('section80TTB', Number(e.target.value))}
                         className="mt-1"
                       />
                     </div>

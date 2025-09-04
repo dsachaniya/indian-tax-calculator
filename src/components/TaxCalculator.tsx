@@ -23,6 +23,7 @@ import {
 const TaxCalculator = () => {
   const [inputs, setInputs] = useState<TaxInputs>({
     annualSalary: 1100000,
+    basicPlusDA: 550000, // Added basic + DA field (estimated as 50% of annual salary)
     hra: 220000,
     rentPaid: 180000,
     providentFund: 60000,
@@ -35,6 +36,9 @@ const TaxCalculator = () => {
     professionalTax: 2500,
     employerNPS: 50000,
     agniveerCorpus: 0,
+    section80G: 0, // Donations to approved institutions
+    section80TTA: 0, // Savings Bank Interest
+    section80TTB: 0, // Savings/FD Interest (Senior citizens)
     isMetro: true
   })
 
@@ -201,6 +205,24 @@ const TaxCalculator = () => {
                       </Tooltip>
                     </div>
 
+                    <div>
+                      <Label htmlFor="basicPlusDA">Basic Salary + DA (₹)</Label>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Input
+                            id="basicPlusDA"
+                            type="number"
+                            value={inputs.basicPlusDA}
+                            onChange={(e) => handleInputChange('basicPlusDA', e.target.value)}
+                            placeholder="e.g., 600000"
+                          />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Basic salary plus Dearness Allowance (if retirement benefit) for HRA calculation</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="hra">HRA Received (₹)</Label>
@@ -353,6 +375,60 @@ const TaxCalculator = () => {
                           onChange={(e) => handleInputChange('employerNPS', e.target.value)}
                           placeholder="e.g., 50000"
                         />
+                      </div>
+
+                      <div>
+                        <Label htmlFor="section80G">80G: Donations (₹)</Label>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Input
+                              id="section80G"
+                              type="number"
+                              value={inputs.section80G}
+                              onChange={(e) => handleInputChange('section80G', e.target.value)}
+                              placeholder="Donations to approved institutions"
+                            />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Donations to approved institutions (50%/100% depending on approval)</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
+
+                      <div>
+                        <Label htmlFor="section80TTA">80TTA: Savings Interest (₹)</Label>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Input
+                              id="section80TTA"
+                              type="number"
+                              value={inputs.section80TTA}
+                              onChange={(e) => handleInputChange('section80TTA', e.target.value)}
+                              placeholder="Max ₹10,000 (Non-senior citizens)"
+                            />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Savings Bank Interest (Max ₹10,000, Non-senior citizens)</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
+
+                      <div>
+                        <Label htmlFor="section80TTB">80TTB: Savings/FD Interest (₹)</Label>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Input
+                              id="section80TTB"
+                              type="number"
+                              value={inputs.section80TTB}
+                              onChange={(e) => handleInputChange('section80TTB', e.target.value)}
+                              placeholder="Max ₹50,000 (Senior citizens)"
+                            />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Savings/FD Interest (Max ₹50,000, Senior citizens only)</p>
+                          </TooltipContent>
+                        </Tooltip>
                       </div>
                     </div>
                   </div>

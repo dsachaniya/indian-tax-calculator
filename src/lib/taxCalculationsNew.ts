@@ -40,6 +40,27 @@ export interface TaxResults {
   rebateApplied?: boolean
 }
 
+interface TaxSlab {
+  upto?: number
+  from?: number
+  to?: number
+  above?: number
+  rate: number
+}
+
+interface ProcessedSlab {
+  min: number
+  max: number
+  rate: number
+}
+
+interface SurchargeConfig {
+  from?: number
+  to?: number
+  above?: number
+  rate: number
+}
+
 // Tax Configuration Object (Externalized for easy updates)
 const TAX_CONFIG = {
   taxYear: "AY2025-26",
@@ -49,7 +70,7 @@ const TAX_CONFIG = {
       { from: 250001, to: 500000, rate: 5 },
       { from: 500001, to: 1000000, rate: 20 },
       { above: 1000000, rate: 30 }
-    ],
+    ] as TaxSlab[],
     newRegime: [
       { upto: 300000, rate: 0 },
       { from: 300001, to: 600000, rate: 5 },
@@ -57,7 +78,7 @@ const TAX_CONFIG = {
       { from: 900001, to: 1200000, rate: 15 },
       { from: 1200001, to: 1500000, rate: 20 },
       { above: 1500000, rate: 30 }
-    ]
+    ] as TaxSlab[]
   },
   rebate87A: {
     oldRegime: { limit: 500000, rebate: 12500 },
@@ -72,7 +93,7 @@ const TAX_CONFIG = {
     { from: 10000001, to: 20000000, rate: 15 },
     { from: 20000001, to: 50000000, rate: 25 },
     { above: 50000000, rate: 37 }
-  ],
+  ] as SurchargeConfig[],
   deductions: {
     oldRegime: {
       section16: { standardDeduction: 50000, professionalTaxMax: 2500 },
@@ -93,15 +114,15 @@ const TAX_CONFIG = {
 };
 
 // Modern Tax Slab Processing with Functional Programming
-const processOldRegimeSlabs = () => TAX_CONFIG.slabs.oldRegime.map(slab => ({
-  min: (slab as any).from || 0,
-  max: (slab as any).to || ((slab as any).above ? Infinity : (slab as any).upto),
+const processOldRegimeSlabs = (): ProcessedSlab[] => TAX_CONFIG.slabs.oldRegime.map((slab: TaxSlab) => ({
+  min: slab.from || 0,
+  max: slab.to || (slab.above ? Infinity : slab.upto || 0),
   rate: slab.rate / 100
 }));
 
-const processNewRegimeSlabs = () => TAX_CONFIG.slabs.newRegime.map(slab => ({
-  min: (slab as any).from || 0,
-  max: (slab as any).to || ((slab as any).above ? Infinity : (slab as any).upto),
+const processNewRegimeSlabs = (): ProcessedSlab[] => TAX_CONFIG.slabs.newRegime.map((slab: TaxSlab) => ({
+  min: slab.from || 0,
+  max: slab.to || (slab.above ? Infinity : slab.upto || 0),
   rate: slab.rate / 100
 }));
 
@@ -128,11 +149,11 @@ function calculateIncomeTaxFromSlabs(taxableIncome: number, taxSlabs: Array<{min
 }
 
 function calculateSurchargeAmount(incomeTax: number, taxableIncome: number): number {
-  const surchargeConfig = TAX_CONFIG.surcharge.find(s => {
-    if ((s as any).to) {
-      return taxableIncome >= (s as any).from && taxableIncome <= (s as any).to;
+  const surchargeConfig = TAX_CONFIG.surcharge.find((s: SurchargeConfig) => {
+    if (s.to) {
+      return taxableIncome >= (s.from || 0) && taxableIncome <= s.to;
     } else {
-      return taxableIncome >= (s as any).above;
+      return taxableIncome >= (s.above || 0);
     }
   });
   return surchargeConfig ? incomeTax * (surchargeConfig.rate / 100) : 0;

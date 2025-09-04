@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Calculator, Receipt, Globe, Heart } from 'lucide-react'
+import { Calculator, Receipt, Heart } from 'lucide-react'
 
 export default function Footer() {
   return (

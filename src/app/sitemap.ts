@@ -3,7 +3,7 @@ import { MetadataRoute } from 'next'
 export const dynamic = 'force-static'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://dsachaniya.github.io/indian-tax-calculator'
+  const baseUrl = 'https://taxgenius.in'
   
   return [
     {

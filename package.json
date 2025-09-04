@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "export": "npm run build",
+    "deploy": "npm run export && touch out/.nojekyll"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.3.3",
